@@ -184,6 +184,7 @@ bool timeoutPingSent = false;
 
  ******************************************************************************/
 void issueEosSubscribes()
+
 {
   // Add a filter so we don't get spammed with unwanted OSC messages from Eos
   OSCMessage filter("/eos/filter/add");
@@ -193,19 +194,14 @@ void issueEosSubscribes()
   filter.send(SLIPSerial);
   SLIPSerial.endPacket();
 
-  // subscribe to Eos pan & tilt updates
-  OSCMessage subPan("/eos/subscribe/param/pan");
+  OSCMessage subPan("/eos/subscribe/param/pan/tilt");
   subPan.add(SUBSCRIBE);
   SLIPSerial.beginPacket();
   subPan.send(SLIPSerial);
   SLIPSerial.endPacket();
 
-  OSCMessage subTilt("/eos/subscribe/param/tilt");
-  subTilt.add(SUBSCRIBE);
-  SLIPSerial.beginPacket();
-  subTilt.send(SLIPSerial);
-  SLIPSerial.endPacket();
 }
+
 
 /*******************************************************************************
    Given a valid OSCMessage (relevant to Pan/Tilt), we update our Encoder struct
